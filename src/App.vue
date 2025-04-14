@@ -4,10 +4,8 @@
     <Editor v-else-if="_isPC" />
     <Mobile v-else />
   </template>
-  <FullscreenSpin tip="数据初始化中，请稍等 ..." v-else  loading :mask="false" />
+  <FullscreenSpin tip="Initializing data..." v-else  loading :mask="false" />
 </template>
-
-
 
 <script lang="ts" setup>
 import { onMounted } from 'vue'
@@ -39,8 +37,8 @@ if (import.meta.env.MODE !== 'development') {
 }
 
 onMounted(async () => {
-  if (location.hostname === 'localhost') {
-    message.error('本地开发请访问 http://127.0.0.1:5173，否则不保证数据可靠性', { duration: 0, closable: true })
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+    // message.error('Local development please visit http://127.0.0.1:5173, otherwise data reliability is not guaranteed', { duration: 0, closable: true })
     api.getMockData('slides').then((slides: Slide[]) => {
       slidesStore.setSlides(slides)
     })
@@ -55,7 +53,7 @@ onMounted(async () => {
   snapshotStore.initSnapshotDatabase()
 })
 
-// 应用注销时向 localStorage 中记录下本次 indexedDB 的数据库ID，用于之后清除数据库
+// When the application is unregistered, the database ID of the indexedDB is recorded in localStorage for later clearing the database
 window.addEventListener('unload', () => {
   const discardedDB = localStorage.getItem(LOCALSTORAGE_KEY_DISCARDED_DB)
   const discardedDBList: string[] = discardedDB ? JSON.parse(discardedDB) : []

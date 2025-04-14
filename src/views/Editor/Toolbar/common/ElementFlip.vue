@@ -2,15 +2,15 @@
   <div class="element-flip">
     <ButtonGroup class="row">
       <CheckboxButton 
-        style="flex: 1;"
+        style="flex: 1; font-size: 11px;"
         :checked="flipV"
         @click="updateFlip({ flipV: !flipV })"
-      ><IconFlipVertically /> 垂直翻转</CheckboxButton>
+      ><IconFlipVertically /> Vertically</CheckboxButton>
       <CheckboxButton 
-        style="flex: 1;"
+        style="flex: 1; font-size: 11px;"
         :checked="flipH"
         @click="updateFlip({ flipH: !flipH })"
-      ><IconFlipHorizontally /> 水平翻转</CheckboxButton>
+      ><IconFlipHorizontally /> Horizontally</CheckboxButton>
     </ButtonGroup>
   </div>
 </template>
